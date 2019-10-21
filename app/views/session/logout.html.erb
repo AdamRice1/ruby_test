@@ -1,0 +1,83 @@
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    #register{
+        margin-top: 3%;
+        border: solid;
+        
+        padding: 3%;
+        border-radius: 2%;
+    }
+    #opps{
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Belt Exam</span>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <form id='register' action='/session/create' method='post'>
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">First Name</label>
+                    <input type="text" name='user[first_name]' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Last Name</label>
+                    <input type="text" name='user[last_name]' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" name='user[email]' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name='user[password]' class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <small id="emailHelp" class="form-text text-muted">Password must be at least 8 characters long.</small>
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" name='user[confirm_password]' class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+            <div class="col">
+                <form action='/login' method='post' id='register'>
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input name='email_login' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input name='password_login' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <div id='opps'>
+                <% if flash[:alert] %>
+                    <% flash[:alert].each do |error| %>
+                <div id='errors'><p><%= error %></p></div>
+                 <% end %>
+                <% end %>
+                </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col">
+                
+            </div>
+            <div class="col">
+                
+            </div>
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+</body>

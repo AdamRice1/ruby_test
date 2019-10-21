@@ -1,0 +1,48 @@
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Welcome <%= @user.first_name %> <%= @user.last_name %></span><a href='/logout'>Logout</a><a href='/songs'>Dashboard</a>
+        </nav>
+        <div class="row">
+            <div class="col-10">
+            <h3><%= @user.first_name %>'s Playlist</h3>
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Artist</th>
+                <th scope="col">Title</th>
+                <th scope="col">Number of Times Added</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% Add.select(:song_id).uniq.each do |hey| %>
+            <tr>
+            <% if Add.where(user_id: @user.id, song_id: hey.song_id).count != 0 %>
+                <td><%= hey.song.artist %></td>
+                <td><%= hey.song.title %></td>
+                <td><%= Add.where(user_id: @user.id, song_id: hey.song_id).count %> </td>
+                <% end %>
+                <% end %>
+            </tbody>
+        </table>
+            </div>
+            <div class="col-2">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</body>

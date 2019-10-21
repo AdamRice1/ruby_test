@@ -1,0 +1,47 @@
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Welcome</span><a href='/songs'>Dashboard</a><a href='/logout'>Logout</a>
+        </nav>
+        <div class="row">
+            <div class="col-8">
+            <h5>Others Who added <%= @song.title %> by <%= @song.artist %></h5>
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Times Added</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% Add.select(:user_id).uniq.each do |lol| %>
+            <tr>
+            <% if Add.where(user_id: lol.user_id, song_id: @song.id).count != 0 %>
+                <td><a href='/user/show/<%= User.find(lol.user_id).id %>'><%= User.find(lol.user_id).first_name %></a> </td>
+                <td><%= Add.where(user_id: lol.user_id, song_id: @song.id).count %></td>
+              </tr>
+              <% end %>
+                    <% end %>
+            </tbody>
+            </table>
+            </div>
+            <div class="col-4">
+            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            
+            </div>
+            <div class="col">
+            
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</body>

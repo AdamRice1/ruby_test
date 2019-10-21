@@ -1,0 +1,73 @@
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Welcome <%= @user.first_name %> <%= @user.last_name %></span><a href='/logout'>Logout</a>
+        </nav>
+        <div class="row">
+            <div class="col-10">
+            <h3>All the songs in our hub:</h3>
+                <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Number of Times Added</th>
+                    <th scope='col'>Add to Playlist</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @songs.each do |songs| %>
+                <tr>
+                    <td><%= songs.artist %></td>
+                    <td><a href='/song/show/<%= songs.id %>'><%= songs.title %></a></td>
+                    <td><%= songs.adds.count %> </td>
+                    <td>
+                        <form action='/add' method='post'>
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <input name='song_id' type='hidden' value='<%= songs.id %>'>
+                            <button type='submit' class='btn btn-secondary'>Add</button>
+                        </form>
+                    </td>
+                </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            </div>
+            <div class="col-2">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Add A Song</h4>
+                <form action='/create_song' method='post'>
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <div class="form-group">
+                    <label for="exampleFormControlInput1">Title</label>
+                    <input name='songs[title]' type="text" class="form-control" id="exampleFormControlInput1" placeholder="Song Title">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleFormControlInput1">Artist</label>
+                    <input name='songs[artist]' type="text" class="form-control" id="exampleFormControlInput1" placeholder="Artist">
+                    </div>
+                    <input type='hidden' name='songs[user_id]' value='<%= @user.id %>'>
+                    <button type='submit' class='btn btn-primary'>Add</button>
+                </form>
+            </div>
+            <div class="col">
+                    <% if flash[:alert] %>
+                    <% flash[:alert].each do |error| %>
+                <div id='errors'><p><%= error %></p></div>
+                <% end %>
+                <% end %>
+            </div>
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+</body>
